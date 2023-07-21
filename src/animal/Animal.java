@@ -29,7 +29,7 @@ public abstract class Animal {
         return this.nicknames;
     }
 
-    public int getCounter() {
+    public static int getCounter() {
         return counter;
     }
 
