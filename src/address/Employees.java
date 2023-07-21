@@ -1,18 +1,17 @@
 package address;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Employees extends Address{
+public class Employees {
     private String name;
     private final String idNumber;
+    private final List<Address> addressList;
 
-    private List<Address> addressList;
-
-    public Employees(String name, String idNumber, String country, int zipCode, String street, int number) {
-        super(country, zipCode, street, number);
+    public Employees(String name, String idNumber, List<Address> addressList) {
         this.name = name;
         this.idNumber = idNumber;
-        this.addressList.add(new Address(country, zipCode, street, number));
+        this.addressList = addressList;
     }
 
     public String getName() {
@@ -31,7 +30,19 @@ public class Employees extends Address{
         return addressList;
     }
 
-    public void setAddressList(List<Address> addressList) {
-        this.addressList = addressList;
+    public void addAddress(Address address) throws AddressAlreadyExistsException{
+        if (!addressList.contains(address)) {
+            this.addressList.add(address);
+        } else {
+            throw new AddressAlreadyExistsException();
+        }
+    }
+
+    public void removeAddress(Address address) throws AddressNotFoundException {
+        if (addressList.contains(address)) {
+            this.addressList.remove(address);
+        } else {
+            throw new AddressNotFoundException();
+        }
     }
 }
